@@ -1,0 +1,16 @@
+/build
+/dev
+/chroma
+/qmp
+/qdpxx
+/tests/hadspec/hadspec.out.xml
+/tests/hadspec/XMLDAT
+.DS_Store?
+._*
+.Trashes
+\#*
+ehthumbs.db
+Thumbs.
+.cproject
+.project
+.pydevproject

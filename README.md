@@ -1,6 +1,10 @@
+# USQCD软件Python封装
+
+
+
 # 一键安装Chroma及其相关库
 
-本例提供Linux系统中，一键安装格点QCD计算模拟常用软件Chroma及其相关库QDPXX、QMP的脚本。
+本例提供Linux系统中，一键安装格点QCD计算模拟常用软件Chroma及其相关库QMP、QDPXX（QIO/CLime）、QUDA等脚本。
 
 需要先安装依赖库，之后修改安装Chroma的路径变量，之后运行脚本自动编译并以动态库的形式安装，最后测试实例。
 

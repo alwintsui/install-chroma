@@ -13,6 +13,7 @@
 /tests/hadspec/hadspec.out.xml
 /tests/hadspec/XMLDAT
 
+/build
 .DS_Store?
 ._*
 .Trashes

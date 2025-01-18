@@ -1,7 +1,7 @@
 #include "clime_utils.h"
 #include <dcap-overload.h>
 /* Scan for non-ASCII characters */
-/* Return true if all characters are ASCII */
+/* Return true if all characters are ASCII */ 
 int all_ascii(char *buf, size_t length)
 {
     size_t i;

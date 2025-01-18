@@ -54,10 +54,10 @@ void StartupConfig(const GroupXML_t &input_cfg, multi1d<LatticeColorMatrix> &u,
         Handle<GaugeInit> gaugeInit(
             TheGaugeInitFactory::Instance().createObject(input_cfg.id, cfgtop, input_cfg.path));
         (*gaugeInit)(gauge_file_xml, gauge_xml, u);
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "CHROMA: caught cast error" << std::endl;
         QDP_abort(1);
-    } catch (std::bad_alloc) {
+    } catch (std::bad_alloc &) {
         // This might happen on any node, so report it
         std::cerr << "CHROMA: caught bad memory allocation" << std::endl;
         QDP_abort(1);
@@ -110,7 +110,7 @@ void GetNamedGauge(const std::string &gauge_id, multi1d<LatticeColorMatrix> &u, 
         // Write out the config header
         write(xml_out, "Config_info", gauge_xml);
 
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "GetNamedGauge: caught dynamic cast error" << std::endl;
         QDP_abort(1);
     } catch (const std::string &e) {
@@ -139,7 +139,7 @@ void GetNamedLatticePropagator(const std::string &prop_id, LatticePropagator &qu
         // Write out the propagator header
         write(xml_out, "Prop_file_info", prop_file_xml);
         write(xml_out, "Prop_record_info", prop_record_xml);
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "GetNamedLatticePropagator: caught dynamic cast error" << std::endl;
         QDP_abort(1);
     } catch (const std::string &e) {
@@ -181,7 +181,7 @@ std::string SetNamedLatticePropagator(const std::string &prop_id,
         TheNamedObjMap::Instance().get(pid).setRecordXML(record_xml);
 
         QDPIO::cout << "Source successfully update" << std::endl;
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "SetNamedLatticePropagator: dynamic cast error" << std::endl;
         QDP_abort(1);
     } catch (const std::string &e) {
@@ -251,7 +251,7 @@ void WriteLatticePropagator(const LatticePropagator &quark_propagator, int j_dec
 
         writeQprop(file_xml, record_xml, quark_propagator, file, QDPIO_SINGLEFILE, QDPIO_SERIAL);
         QDPIO::cout << "WriteLatticePropagator successfully update" << std::endl;
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "WriteLatticePropagator: dynamic cast error" << std::endl;
         QDP_abort(1);
     } catch (const std::string &e) {
@@ -267,7 +267,7 @@ void ReadLatticePropagator(const std::string &file, LatticePropagator &quark_pro
     try {
         readQprop(file_xml, record_xml, quark_propagator, file, QDPIO_SERIAL);
         read(record_xml, "/descendant::j_decay[1]", j_decay);
-    } catch (std::bad_cast) {
+    } catch (std::bad_cast &) {
         QDPIO::cerr << "ReadLatticePropagator: dynamic cast error" << std::endl;
         QDP_abort(1);
     } catch (const std::string &e) {

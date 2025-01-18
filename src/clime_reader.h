@@ -40,7 +40,7 @@ class CLimeReader {
 
     int SetState(LimeReader *rsrc) { return limeReaderSetState(reader, rsrc); }
 
-    int EOM() { return limeEOM(reader); }
+    //int EOM() { return limeEOM(reader); } undefined
     //new functions
     operator LimeReader *() { return reader; }
     operator const LimeReader *() const { return reader; }

@@ -14,7 +14,6 @@ int write_rec(CLimeWriter &writer, int MB_flag, int ME_flag, int shuffle, char m
     off_t totbytes = strlen(message);
     off_t seek;
     n_uint64_t bytes;
-    LimeRecordHeader *h;
     int status = EXIT_SUCCESS;
     char *bufstart;
 

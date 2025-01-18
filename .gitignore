@@ -2,6 +2,10 @@
 !/install-all/Makefile
 
 /tests/test_chroma_api
+/tests/test_clime_reader
+/tests/test_clime_writer
+/tests/test_writer.lime
+
 /tests/XMLDAT
 /tests/mesons2.txt
 /tests/barprop.txt

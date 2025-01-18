@@ -13,3 +13,7 @@ export XML2_INC=/usr/include/libxml2  #/usr/local/libxml2/include/libxml2
 export LD_LIBRARY_PATH=${CHROMA_PATH}/lib:$LD_LIBRARY_PATH
 export PATH=${CHROMA_PATH}/bin:${PATH}
 
+#export CONDA_PREFIX=${HOME}/.conda/envs/py3hep
+#export PKG_CONFIG_PATH=$CONDA_PREFIX/lib/pkgconfig
+
+export QUDA_RESOURCE_PATH=$HOME/local/usqcd

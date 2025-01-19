@@ -37,6 +37,10 @@ macro(my_swig_add_library TARGET SWIG_SRC DEP_LIB)
   set_property(SOURCE ${SWIG_SRC} PROPERTY CPLUSPLUS ON)
   swig_add_library(${TARGET} LANGUAGE python SOURCES ${SWIG_SRC} OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
   get_target_property(MY_SWIG_INCLUDE_DIRS ${DEP_LIB} INCLUDE_DIRECTORIES)
+  if(NOT MY_SWIG_INCLUDE_DIRS)
+    get_target_property(MY_SWIG_INCLUDE_DIRS ${DEP_LIB} INTERFACE_INCLUDE_DIRECTORIES)
+  endif()
+  message("MY_SWIG_INCLUDE_DIRS=${MY_SWIG_INCLUDE_DIRS}")
   set_property(TARGET ${TARGET} PROPERTY SWIG_INCLUDE_DIRECTORIES ${MY_SWIG_INCLUDE_DIRS})
   #set_property(TARGET ${TARGET} PROPERTY SWIG_COMPILE_OPTIONS -relativeimport)
   set_property(TARGET ${TARGET} PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd)
@@ -48,7 +52,10 @@ endmacro()
 my_swig_add_library(pylime lime_api.i lime_api)
 my_swig_add_library(pychroma chroma_api.i chroma_api)
 
-
+FIND_PACKAGE(XPathReader REQUIRED)
+my_swig_add_library(pyxpathreader xpath_reader.i XPathReader::XPathReader)
+swig_link_libraries(pyxpathreader XPathReader::xmlWriter)
+ 
 configure_file(setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py @ONLY)
 
 #copy modules in pyusqcd to binary direcotry

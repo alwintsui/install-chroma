@@ -6,6 +6,8 @@
 /python/pyusqcd/_pylime.so
 /python/pyusqcd/pychroma.py
 /python/pyusqcd/pylime.py
+/python/pyusqcd/_pyxpathreader.so
+/python/pyusqcd/pyxpathreader.py
 /python/setup.py
 
 /tests/test_chroma_api

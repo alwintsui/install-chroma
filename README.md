@@ -1,5 +1,13 @@
-# USQCD软件Python封装
+# USQCD软件使用与二次开发
 
+本项目围绕USQCD软件（Chroma和QUDA等），实现简便使用和二次开发扩展。
+
+- 提供一键安装配置
+- 提供Chroma上层API函数集
+- 提供Lime的面向对象封装
+- 提供Chroma、Lime、XPathReader和Quda的Python封装
+
+徐顺， 2025年1月
 
 
 # 一键安装Chroma及其相关库
@@ -30,7 +38,7 @@ Makefile默认会自动在本地目录下载Chroma、QDPXX、QMP等模块，并�
 ```
 #vi env.sh
 source env.sh
-make
+make usqcd
 ```
 
 ## 运行测试
@@ -40,6 +48,6 @@ tests/hadspec是Chroma自带例子，也即chroma/tests/chroma/hadron/hadspec。
 安装完成之后，运行如下命令进行测试
 
 ```
-make test-hadspec
+make -C tests test-hadspec
 ```
 

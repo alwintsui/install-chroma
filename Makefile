@@ -18,5 +18,8 @@ py:
 	cmake --build ${BUILD_DIR}  --config ${BUILD_TYPE} --verbose
 	#cd python && python setup.py install
 
+usqcd:
+	make -C install-usqcd
+
 cont:
 	cmake --build ${BUILD_DIR}  --config ${BUILD_TYPE} --verbose

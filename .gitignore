@@ -1,5 +1,5 @@
-/install-all
-!/install-all/Makefile
+/install-usqcd
+!/install-usqcd/Makefile
 
 /python/pyusqcd/__pycache__
 /python/pyusqcd/_chroma.so

@@ -35,12 +35,13 @@ message(STATUS "SWIG_USE_FILE = " ${SWIG_USE_FILE})
 
 macro(my_swig_add_library TARGET SWIG_SRC DEP_LIB)
   set_property(SOURCE ${SWIG_SRC} PROPERTY CPLUSPLUS ON)
-  swig_add_library(${TARGET} LANGUAGE python SOURCES ${SWIG_SRC} OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/pyusqcd OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
+  swig_add_library(${TARGET} LANGUAGE python SOURCES ${SWIG_SRC} OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
   get_target_property(MY_SWIG_INCLUDE_DIRS ${DEP_LIB} INCLUDE_DIRECTORIES)
   set_property(TARGET ${TARGET} PROPERTY SWIG_INCLUDE_DIRECTORIES ${MY_SWIG_INCLUDE_DIRS})
-  set_property(TARGET ${TARGET} PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pyusqcd)
+  #set_property(TARGET ${TARGET} PROPERTY SWIG_COMPILE_OPTIONS -relativeimport)
+  set_property(TARGET ${TARGET} PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd)
   target_include_directories(${TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/src ${PYTHON_INCLUDE_DIR})
-  target_link_libraries(${TARGET} ${DEP_LIB} python${PYTHON_LIB_VER})
+  swig_link_libraries(${TARGET} ${DEP_LIB} python${PYTHON_LIB_VER})
   #set_target_properties(pylime PROPERTIES PREFIX ""  SUFFIX ".so" LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/pyusqcd")
 endmacro()
 
@@ -48,6 +49,12 @@ my_swig_add_library(pylime lime_api.i lime_api)
 my_swig_add_library(pychroma chroma_api.i chroma_api)
 
 
-configure_file(setup.py.in ${CMAKE_CURRENT_BINARY_DIR}/setup.py @ONLY)
-configure_file(pyusqcd/__init__.py ${CMAKE_CURRENT_BINARY_DIR}/pyusqcd/__init__.py COPYONLY)
-install(CODE "execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} COMMAND ${Python_EXECUTABLE} -m pip install .)")
+configure_file(setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py @ONLY)
+
+#copy modules in pyusqcd to binary direcotry
+#file(GLOB_RECURSE PYUSQCD_MODULES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} pyusqcd/*.py)
+#foreach (MODFILE ${PYUSQCD_MODULES})
+#configure_file(${MODFILE} ${CMAKE_CURRENT_BINARY_DIR}/${MODFILE} COPYONLY)
+#endforeach(MODFILE)
+
+install(CODE "execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} COMMAND ${Python_EXECUTABLE} -m pip install .)")

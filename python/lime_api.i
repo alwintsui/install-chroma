@@ -4,6 +4,7 @@
 
 extern "C"
 {
+#include "lime_defs.h"
 #include "lime_utils.h"
 }
 #include "clime_writer.h"
@@ -37,6 +38,9 @@ extern "C"
 %define %vector_ext(TYPE)
 %template(vector_##TYPE) std::vector<TYPE>;
 %extend std::vector<TYPE> {
+    void * get_void() {
+       return self->data();
+    }
     TYPE * get_data() {
        return self->data();
     }
@@ -47,9 +51,16 @@ extern "C"
 %vector_ext(float)
 %vector_ext(double)
 
+%extend std::vector<char> {
+    void null_at(n_uint64_t i) {
+      self->operator[](i)='\0';
+    }
+};
+
 //%include "numpy.i" //included in hup.i
 %include "std_iostream.i"
 %include "file.i"
+
 FILE *fopen(char *, char *);
 int fclose(FILE *);
 unsigned fread(void *ptr, unsigned size, unsigned nobj, FILE *);
@@ -71,13 +82,18 @@ int feof(FILE *stream);
 %include "clime_reader.h"
 %include "clime_utils.h"
 
-
+%typemap(out) n_uint64_t
+{
+  return PyLong_FromUnsignedLong($1);
+}
 
 %inline %{
-/*test the word byte of machine*/
-
  bool fok(FILE *s) {return s!=NULL;}
+ FILE * get_stdout() {return stdout;}
+ FILE * get_stdin() {return stdin;}
+ FILE * get_stderr() {return stderr;}
 
+ unsigned long long get_value(n_uint64_t i){ return static_cast<unsigned long long>(i); }
 %}
 
 %init %{

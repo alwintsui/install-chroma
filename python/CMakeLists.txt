@@ -33,6 +33,16 @@ FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
 message(STATUS "SWIG_USE_FILE = " ${SWIG_USE_FILE})
 
+
+#skip $<$<COMPILE_LANGUAGE:CUDA>:/opt/local/cuda-12.5/include>
+macro(filter_name_path result)
+  foreach(path ${ARGN})
+    if(NOT "${path}" MATCHES "^\\$<.*>$")
+      list(APPEND ${result} "${path}")
+    endif()
+  endforeach()
+endmacro()
+
 macro(my_swig_add_library TARGET SWIG_SRC DEP_LIB)
   set_property(SOURCE ${SWIG_SRC} PROPERTY CPLUSPLUS ON)
   swig_add_library(${TARGET} LANGUAGE python SOURCES ${SWIG_SRC} OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
@@ -40,8 +50,8 @@ macro(my_swig_add_library TARGET SWIG_SRC DEP_LIB)
   if(NOT MY_SWIG_INCLUDE_DIRS)
     get_target_property(MY_SWIG_INCLUDE_DIRS ${DEP_LIB} INTERFACE_INCLUDE_DIRECTORIES)
   endif()
-  message("MY_SWIG_INCLUDE_DIRS=${MY_SWIG_INCLUDE_DIRS}")
-  set_property(TARGET ${TARGET} PROPERTY SWIG_INCLUDE_DIRECTORIES ${MY_SWIG_INCLUDE_DIRS})
+  filter_name_path(MY_SWIG_INCLUDE_DIRS_NET ${MY_SWIG_INCLUDE_DIRS})
+  set_property(TARGET ${TARGET} PROPERTY SWIG_INCLUDE_DIRECTORIES ${MY_SWIG_INCLUDE_DIRS_NET} ${PROJECT_SOURCE_DIR}/src)
   #set_property(TARGET ${TARGET} PROPERTY SWIG_COMPILE_OPTIONS -relativeimport)
   set_property(TARGET ${TARGET} PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pyusqcd)
   target_include_directories(${TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/src ${PYTHON_INCLUDE_DIR})
@@ -55,7 +65,10 @@ my_swig_add_library(chroma chroma_api.i chroma_api)
 FIND_PACKAGE(XPathReader REQUIRED)
 my_swig_add_library(xpathreader xpath_reader.i XPathReader::XPathReader)
 swig_link_libraries(xpathreader XPathReader::xmlWriter)
- 
+
+FIND_PACKAGE(QUDA REQUIRED)
+my_swig_add_library(quda quda_api.i QUDA::quda)
+
 configure_file(setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py @ONLY)
 
 #copy modules in pyusqcd to binary direcotry

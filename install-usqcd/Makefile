@@ -39,8 +39,8 @@ install-chroma:chroma
 
 install-quda:quda
 	mkdir -p build/quda && cd build/quda && rm -rf *
-	QUDA_TARGET=HIP QUDA_GPU_ARCH=gfx926 cmake -L -DCMAKE_CXX_COMPILER=hipcc -DCMAKE_C_COMPILER=hipcc \
-		  -DCMAKE_BUILD_TYPE=${CHROMA_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${CHROMA_PATH} \
+	#QUDA_TARGET=HIP QUDA_GPU_ARCH=gfx926 cmake -L -DCMAKE_CXX_COMPILER=hipcc -DCMAKE_C_COMPILER=hipcc
+	cmake -L -DCMAKE_BUILD_TYPE=${CHROMA_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${CHROMA_PATH} \
           -DQUDA_QMP=ON -DQUDA_QIO=ON -DQUDA_QDPJIT=OFF -DQUDA_MULTIGRID=ON -B build/quda -S quda
 	cmake --build build/quda --config ${CHROMA_BUILD_TYPE} -j12
 	cmake --install build/quda

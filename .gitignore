@@ -8,6 +8,8 @@
 /python/pyusqcd/lime.py
 /python/pyusqcd/_xpathreader.so
 /python/pyusqcd/xpathreader.py
+/python/pyusqcd/_quda.so
+/python/pyusqcd/quda.py
 /python/setup.py
 
 /tests/test_chroma_api

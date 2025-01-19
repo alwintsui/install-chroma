@@ -13,8 +13,8 @@ py:
 	cmake -E make_directory ${BUILD_DIR} && cd ${BUILD_DIR} && rm -rf * && cmake -L -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
         -DUSE_PYTHON=ON -DCMAKE_BUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX=$(APP_DIR) \
 		-DCLime_DIR=${HOME}/local/usqcd/lib/cmake/CLime -DQMP_DIR=${HOME}/local/usqcd/lib/cmake/QMP \
-		-DXPathReader_DIR=${HOME}/local/usqcd/lib/cmake/XPathReader \
-		-DQDPXX_DIR=${HOME}/local/usqcd/lib/cmake/QDPXX -DChroma_DIR=${HOME}/local/usqcd/lib/cmake/Chroma ..
+		-DXPathReader_DIR=${HOME}/local/usqcd/lib/cmake/XPathReader -DQDPXX_DIR=${HOME}/local/usqcd/lib/cmake/QDPXX \
+		-DQUDA_DIR=${HOME}/local/usqcd/lib/cmake/QUDA -DChroma_DIR=${HOME}/local/usqcd/lib/cmake/Chroma ..
 	cmake --build ${BUILD_DIR}  --config ${BUILD_TYPE} --verbose
 	#cd python && python setup.py install
 

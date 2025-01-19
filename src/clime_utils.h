@@ -1,7 +1,11 @@
 #ifndef CLIME_UTILS_H
 #define CLIME_UTILS_H
 #include <stdio.h>
+extern "C"
+{
 #include <lime_fixed_types.h>
+}
+
 /* Scan for non-ASCII characters */
 /* Return true if all characters are ASCII */
 int all_ascii(char *buf, size_t length);

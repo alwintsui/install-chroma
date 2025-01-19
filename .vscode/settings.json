@@ -55,6 +55,11 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "lime_utils.h": "c",
+        "lime_reader.h": "c",
+        "lime_config.h": "c",
+        "lime_fixed_types.h": "c",
+        "lime_config_internal.h": "c"
     }
 }

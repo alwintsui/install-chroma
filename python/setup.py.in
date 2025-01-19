@@ -1,0 +1,13 @@
+from setuptools import setup, find_packages
+print(find_packages())
+if __name__ == "__main__":
+    setup(
+        name='pyusqcd',
+        version='@PROJECT_VERSION@',
+        author='Shun Xu',
+        author_email='xushun@sccas.cn',
+        package_data={'pyusqcd': ['_pychroma.so','_pylime.so']},
+        description='USQCD python wrapper',
+        packages=find_packages(),
+        include_package_data=True
+    )

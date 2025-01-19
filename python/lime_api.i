@@ -1,7 +1,11 @@
 //directors="1"
 %module (docstring="CLime C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") pylime
 %{
+
+extern "C"
+{
 #include "lime_utils.h"
+}
 #include "clime_writer.h"
 #include "clime_reader.h"
 #include "clime_utils.h"
@@ -30,12 +34,18 @@
 //string,vector,map,pair
 %include "stl.i" 
 /* instantiate the required template specializations */
-namespace std {
-    %template(char_vector)   vector<char>;
-    %template(int_vector)    vector<int>;
-    %template(float_vector)  vector<float>;
-    %template(double_vector) vector<double>;
-}
+%define %vector_ext(TYPE)
+%template(vector_##TYPE) std::vector<TYPE>;
+%extend std::vector<TYPE> {
+    TYPE * get_data() {
+       return self->data();
+    }
+};
+%enddef
+%vector_ext(char)
+%vector_ext(int)
+%vector_ext(float)
+%vector_ext(double)
 
 //%include "numpy.i" //included in hup.i
 %include "std_iostream.i"
@@ -45,6 +55,10 @@ int fclose(FILE *);
 unsigned fread(void *ptr, unsigned size, unsigned nobj, FILE *);
 unsigned fwrite(void *ptr, unsigned size, unsigned nobj, FILE *);
 int feof(FILE *stream);
+
+//since the limeEOM implementation is not found, just ignore it here
+//we must ignore it before include lime_header.h
+%ignore limeEOM;
 
 %include "lime_defs.h"
 %include "lime_utils.h"
@@ -58,8 +72,6 @@ int feof(FILE *stream);
 %include "clime_utils.h"
 
 
-/* wlc.h should be included after all its member classes */
-%apply (long long ) { (nstep_t) };
 
 %inline %{
 /*test the word byte of machine*/

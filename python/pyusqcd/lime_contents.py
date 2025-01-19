@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
 
-from pylime import *
+from lime import *
 
 def list_contents(limefile):
     MAX_BYTES=64000

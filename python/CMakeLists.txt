@@ -49,12 +49,12 @@ macro(my_swig_add_library TARGET SWIG_SRC DEP_LIB)
   #set_target_properties(pylime PROPERTIES PREFIX ""  SUFFIX ".so" LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/pyusqcd")
 endmacro()
 
-my_swig_add_library(pylime lime_api.i lime_api)
-my_swig_add_library(pychroma chroma_api.i chroma_api)
+my_swig_add_library(lime lime_api.i lime_api)
+my_swig_add_library(chroma chroma_api.i chroma_api)
 
 FIND_PACKAGE(XPathReader REQUIRED)
-my_swig_add_library(pyxpathreader xpath_reader.i XPathReader::XPathReader)
-swig_link_libraries(pyxpathreader XPathReader::xmlWriter)
+my_swig_add_library(xpathreader xpath_reader.i XPathReader::XPathReader)
+swig_link_libraries(xpathreader XPathReader::xmlWriter)
  
 configure_file(setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py @ONLY)
 

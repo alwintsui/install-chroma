@@ -1,5 +1,5 @@
 //directors="1"
-%module (docstring="XPathReader C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") pyxpathreader
+%module (docstring="XPathReader C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") xpathreader
 %{
 
 #include "xpath_reader.h"

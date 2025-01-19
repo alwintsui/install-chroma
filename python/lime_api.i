@@ -1,5 +1,5 @@
 //directors="1"
-%module (docstring="CLime C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") pylime
+%module (docstring="CLime C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") lime
 %{
 
 extern "C"

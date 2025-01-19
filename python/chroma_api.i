@@ -1,5 +1,5 @@
 //directors="1"
-%module (docstring="Chroma C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") pychroma
+%module (docstring="Chroma C++ wrapper in Python, May. 2025, Shun Xu <xushun@sccas.cn>") chroma
 %{
 #include "chroma_api.h"
 

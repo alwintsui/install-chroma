@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
 
-from pyxpathreader import *
+from xpathreader import *
 
 def query_path(xmlfile, xpath):
     reader=XPathReader 
@@ -16,3 +16,5 @@ if __name__ == "__main__":
         print("Usage: print_xpath  <xml file>  <xpath query>")
     else:
         query_path(sys.argv[1],sys.argv[2])
+    
+    #python3 python/pyusqcd/print_xpath.py tests/foo.xml foo/bar/fred:kappa 

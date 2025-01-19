@@ -2,12 +2,12 @@
 !/install-all/Makefile
 
 /python/pyusqcd/__pycache__
-/python/pyusqcd/_pychroma.so
-/python/pyusqcd/_pylime.so
-/python/pyusqcd/pychroma.py
-/python/pyusqcd/pylime.py
-/python/pyusqcd/_pyxpathreader.so
-/python/pyusqcd/pyxpathreader.py
+/python/pyusqcd/_chroma.so
+/python/pyusqcd/_lime.so
+/python/pyusqcd/chroma.py
+/python/pyusqcd/lime.py
+/python/pyusqcd/_xpathreader.so
+/python/pyusqcd/xpathreader.py
 /python/setup.py
 
 /tests/test_chroma_api
